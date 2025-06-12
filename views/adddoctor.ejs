@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.ejs">
+</head>
+<body>
+    <h2>Register Doctor</h2>
+<form action="/admin/add-doctor" method="POST">
+  <label>Enter Name</label>
+  <input type="text" name="name" required>
+
+  <label>Specialization</label>
+  <input type="text" name="specialization">
+
+  <label>Enter Contact</label>
+  <input type="text" name="contact" required>
+
+  <label>Work Experience</label>
+  <input type="text" name="experience">
+
+  <label>Status</label>
+  <select id="Status" name="Status" required>
+    <option value="">-- Select Status --</option>
+    <option value="admin">Active</option>
+    <option value="doctor">Inactive</option>
+</select>
+
+  <label>Username</label>
+  <input type="text" name="status">
+
+  <label>Password</label>
+  <input type="password" name="status">
+
+  <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
