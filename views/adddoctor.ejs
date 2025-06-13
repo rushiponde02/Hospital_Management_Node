@@ -10,32 +10,33 @@
     <h2>Register Doctor</h2>
 <form action="/admin/add-doctor" method="POST">
   <label>Enter Name</label>
-  <input type="text" name="name" required>
+  <input type="text" name="doctor_name" required>
 
   <label>Specialization</label>
-  <input type="text" name="specialization">
+  <input type="text" name="doctor_specialization">
 
   <label>Enter Contact</label>
-  <input type="text" name="contact" required>
+  <input type="text" name="doctor_contact" required>
 
   <label>Work Experience</label>
-  <input type="text" name="experience">
+  <input type="number" name="doctor_experience">
 
   <label>Status</label>
-  <select id="Status" name="Status" required>
+  <select name="status" required>
     <option value="">-- Select Status --</option>
-    <option value="admin">Active</option>
-    <option value="doctor">Inactive</option>
-</select>
+    <option value="Active">Active</option>
+    <option value="Inactive">Inactive</option>
+  </select>
 
   <label>Username</label>
-  <input type="text" name="status">
+  <input type="text" name="username" required>
 
   <label>Password</label>
-  <input type="password" name="status">
+  <input type="password" name="password" required>
 
   <button type="submit">Submit</button>
 </form>
+
 
 </body>
 </html>
