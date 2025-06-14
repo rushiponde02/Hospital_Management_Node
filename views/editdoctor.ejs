@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <%-include('admin.ejs')%>
+    <h2>Edit Doctor</h2>
+<form action="/admin/edit-doctor/<%= doctor.doctor_id %>" method="POST">
+  <label>Name</label>
+  <input type="text" name="doctor_name" value="<%= doctor.doctor_name %>" required>
+  
+  <label>Specialization</label>
+  <input type="text" name="doctor_specialization" value="<%= doctor.doctor_specialization %>">
+
+  <label>Contact</label>
+  <input type="text" name="doctor_contact" value="<%= doctor.doctor_contact %>">
+
+  <label>Experience</label>
+  <input type="number" name="doctor_experience" value="<%= doctor.doctor_experience %>">
+
+  <label>Status</label>
+  <select name="status">
+    <option value="Active" <%= doctor.status === 'Active' ? 'selected' : '' %>>Active</option>
+    <option value="Inactive" <%= doctor.status === 'Inactive' ? 'selected' : '' %>>Inactive</option>
+  </select>
+
+  <button type="submit">Update</button>
+</form>
+
+</body>
+</html>

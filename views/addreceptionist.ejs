@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Reception</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Add Reception</h2>
+<form action="/admin/add-reception" method="POST">
+  <label>Enter Name</label>
+  <input type="text" name="reception_name" required>
+
+  <label>Enter Contact</label>
+  <input type="text" name="reception_contact" required>
+
+  <label>Status</label>
+  <select name="status" required>
+    <option value="">-- Select Status --</option>
+    <option value="Active">Active</option>
+    <option value="Inactive">Inactive</option>
+  </select>
+
+  <label>Username</label>
+  <input type="text" name="username" required>
+
+  <label>Password</label>
+  <input type="password" name="password" required>
+
+  <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
