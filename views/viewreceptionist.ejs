@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<h2>Receptionist List</h2>
+<table border="1" cellpadding="10">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Contact</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  <% receptions.forEach(reception => { %>
+    <tr>
+      <td><%= reception.reception_id %></td>
+      <td><%= reception.reception_name %></td>
+      <td><%= reception.reception_contact %></td>
+      <td><%= reception.status %></td>
+      <td>
+        <a href="/admin/edit-reception/<%= reception.reception_id %>">Edit</a> |
+        <a href="/admin/delete-reception/<%= reception.reception_id %>" onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+    </tr>
+  <% }); %>
+</table>
+</body>
+</html>
+

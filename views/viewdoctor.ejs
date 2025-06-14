@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Doctor List</h2>
+  <form action="">
+    
+  </form>
+<table border="1" cellpadding="10">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Specialization</th>
+    <th>Contact</th>
+    <th>Experience</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  <% doctors.forEach(doctor => { %>
+  <tr>
+    <td><%= doctor.doctor_id %></td>
+    <td><%= doctor.doctor_name %></td>
+    <td><%= doctor.doctor_specialization %></td>
+    <td><%= doctor.doctor_contact %></td>
+    <td><%= doctor.doctor_experience %></td>
+    <td><%= doctor.status %></td>
+    <td>
+      <a href="/admin/edit-doctor/<%= doctor.doctor_id %>">Edit</a> |
+      <a href="/admin/delete-doctor/<%= doctor.doctor_id %>" onclick="return confirm('Are you sure?')">Delete</a>
+    </td>
+  </tr>
+  <% }); %>
+</table>
+
+
+</body>
+</html>

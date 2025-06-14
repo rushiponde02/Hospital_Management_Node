@@ -29,7 +29,11 @@
 const db = require("../config/db");
 
 exports.renderAddDoctor = (req, res) => {
-  res.render("adddoctor");
+  if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+    res.render("adddoctor", { layout: false });
+  } else {
+    res.render("adddoctor");
+  }
 };
 
 exports.addDoctor = (req, res) => {
@@ -86,3 +90,43 @@ exports.addDoctor = (req, res) => {
     );
   });
 };
+
+exports.viewDoctors = (req, res) => {
+  const query = `
+        SELECT d.doctor_id, d.doctor_name, d.doctor_specialization, d.doctor_contact,
+               d.doctor_experience, d.status, u.username
+        FROM doctor d
+        JOIN users u ON d.user_id = u.user_id`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching doctors:", err);
+      return res.status(500).send("Database error");
+    }
+
+    res.render("viewdoctor", {
+      doctors: results,
+    });
+  });
+};
+
+// exports.AdminDashBoradPage = (req, res) => {
+//   console.log("Admin addding doctor ");
+
+//   if (req.session.user?.role !== "admin") return res.redirect("/getstarted");
+//   res.render("admin");
+// };
+
+exports.AdminDashBoradPage = (req, res) => {
+  console.log("Admin addding doctor ");
+
+  if (req.session.user?.role !== "admin") 
+    return res.redirect("/getstarted");
+  res.render("admin");
+};
+
+//redirect("/urlName");   ----> router 
+
+//render("pageName"); --> controller ---------- > model    (controler  <------  model)
+
+//serachBar - url 
