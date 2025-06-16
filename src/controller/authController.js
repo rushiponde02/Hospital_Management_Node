@@ -26,10 +26,12 @@
 //     })
 // })
 
+const { json } = require("express");
 const db = require("../config/db");
+const receptionModel = require("../models/receptionModel");
 
 exports.renderAddDoctor = (req, res) => {
-  if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+  if (req.xhr || req.headers.accept.indexOf("json") > -1) {
     res.render("adddoctor", { layout: false });
   } else {
     res.render("adddoctor");
@@ -120,13 +122,22 @@ exports.viewDoctors = (req, res) => {
 exports.AdminDashBoradPage = (req, res) => {
   console.log("Admin addding doctor ");
 
-  if (req.session.user?.role !== "admin") 
-    return res.redirect("/getstarted");
+  if (req.session.user?.role !== "admin") return res.redirect("/getstarted");
   res.render("admin");
 };
 
-//redirect("/urlName");   ----> router 
+exports.searchRec = (req, res) => {
+  const name = req.query.name || "";
+  receptionModel.searchReception(name, (err, results) => {
+    if (err) {
+      return res.status(500).send("Failed to Get receptionist");
+    }
+    res.json(results);
+  });
+};
+
+//redirect("/urlName");   ----> router
 
 //render("pageName"); --> controller ---------- > model    (controler  <------  model)
 
-//serachBar - url 
+//serachBar - url

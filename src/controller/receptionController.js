@@ -42,7 +42,7 @@
 
 const userModel = require("../models/userModel");
 const receptionModel = require("../models/receptionModel");
-const Reception = require("../models/receptionModel"); // Already defined, just ensure consistency
+const Reception = require("../models/receptionModel"); 
 
 exports.showAddReceptionForm = (req, res) => {
   res.render("addreceptionist");
