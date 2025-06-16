@@ -61,6 +61,9 @@ const authController = require("../controller/authController");
 const doctorController = require("../controller/doctorController");
 const receptionController = require("../controller/receptionController");
 const conn = require("../config/db");
+const nurseController = require("../controller/nurseController");
+
+
 
 router.get("/", (req, res) => {
   res.render("front");
@@ -131,6 +134,12 @@ router.get(
 router.post("/admin/edit-reception/:id", receptionController.updateReception);
 router.get("/admin/delete-reception/:id", receptionController.deleteReception);
 
+router.get('/reception/view-nurse', nurseController.viewNurses);
+router.get('/reception/delete-nurse/:id', nurseController.deleteNurse);
+router.get('/reception/edit-nurse/:id', nurseController.editNurseForm);
+router.post('/reception/update-nurse/:id', nurseController.updateNurse);
+
+
 router.get("/search-doctor", (req, res) => {
   const name = req.query.name || "";
   const query = `SELECT * FROM doctor WHERE doctor_name LIKE ?`;
@@ -149,5 +158,17 @@ router.get("/search-reception", authController.searchRec);
 
 router.get("/doctor/dashboard", doctorController.doctorDashboard);
 router.get("/reception/dashboard", receptionController.receptionDashboard);
+router.get("/reception/add-nurse", (req, res) => {
+  res.render("addnurse"); // Create this EJS file
+});
+
+// Handle form submission
+router.post("/reception/add-nurse", nurseController.addNurse);
+
+router.get('/reception/view-nurse', nurseController.viewNurses);
 
 module.exports = router;
+
+
+
+
