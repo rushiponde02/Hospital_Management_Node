@@ -1,36 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #searchInput {
+      display: block;
+      width: 300px;
+      margin: 0 auto 20px auto;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
 
+  <input type="text" id="searchInput" placeholder="Search Receptionist by name">
 
-<h2>Receptionist List</h2>
-<table border="1" cellpadding="10">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Contact</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </tr>
-  <% receptions.forEach(reception => { %>
-    <tr>
-      <td><%= reception.reception_id %></td>
-      <td><%= reception.reception_name %></td>
-      <td><%= reception.reception_contact %></td>
-      <td><%= reception.status %></td>
-      <td>
-        <a href="/admin/edit-reception/<%= reception.reception_id %>">Edit</a> |
-        <a href="/admin/delete-reception/<%= reception.reception_id %>" onclick="return confirm('Are you sure?')">Delete</a>
-      </td>
-    </tr>
-  <% }); %>
-</table>
+  <table id="receptionTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="receptionData">
+      <% receptions.forEach(r=> { %>
+        <tr>
+          <td>
+            <%= r.reception_id %>
+          </td>
+          <td>
+            <%= r.reception_name %>
+          </td>
+          <td>
+            <%= r.reception_contact %>
+          </td>
+          <td>
+            <%= r.status %>
+          </td>
+          <td>
+            <a href="/admin/edit-reception/<%= r.reception_id %>">Edit</a> |
+            <a href="/admin/delete-reception/<%= r.reception_id %>" onclick="return confirm('Are you sure?')">Delete</a>
+          </td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+
+  <script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const name = this.value;
+      fetch(`/search-reception?name=${name}`)
+        .then(res => res.json())
+        .then(data => {
+          const body = document.getElementById("receptionData");
+          body.innerHTML = "";
+          data.forEach(r => {
+            body.innerHTML += `
+          <tr>
+            <td>${r.reception_id}</td>
+            <td>${r.reception_name}</td>
+            <td>${r.reception_contact}</td>
+            <td>${r.status}</td>
+            <td>
+              <a href="/admin/edit-reception/${r.reception_id}">Edit</a> |
+              <a href="/admin/delete-reception/${r.reception_id}" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+          </tr>
+        `;
+          });
+        });
+    });
+  </script>
+
 </body>
-</html>
 
+</html>

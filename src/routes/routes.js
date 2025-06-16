@@ -110,7 +110,7 @@ router.get("/logout", (req, res) => {
 // Doctor Routes
 router.get("/admin/add-doctor", authController.renderAddDoctor);
 router.post("/admin/add-doctor", authController.addDoctor);
-router.get("/admin/view-doctor", authController.viewDoctors); // This calls authController.viewDoctors which then renders 'viewdoctor'
+router.get("/admin/view-doctor", authController.viewDoctors);
 router.get("/admin/delete-doctor/:id", doctorController.deleteDoctor);
 router.get("/admin/edit-doctor/:id", doctorController.renderEditDoctor);
 router.post("/admin/edit-doctor/:id", doctorController.updateDoctor);
@@ -122,6 +122,25 @@ router.get("/admin/view-reception", receptionController.viewReceptions);
 router.get("/admin/edit-reception/:id", receptionController.renderEditReception);
 router.post("/admin/edit-reception/:id", receptionController.updateReception);
 router.get("/admin/delete-reception/:id", receptionController.deleteReception);
+
+router.get("/search-doctor", (req, res) => {
+  const name = req.query.name || '';
+  const query = `SELECT * FROM doctor WHERE doctor_name LIKE ?`;
+  const searchTerm = `%${name}%`;
+
+  conn.query(query, [searchTerm], (err, results) => {
+    if (err) {
+      console.error("Search error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results);
+  });
+});
+
+router.get("/search-reception",authController.searchRec);
+
+
+router.get("/doctor/dashboard", doctorController.doctorDashboard);
 
 
 module.exports = router;
