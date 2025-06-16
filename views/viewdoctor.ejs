@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,6 +37,142 @@
   <% }); %>
 </table>
 
+ <script>
+    const searchBox = document.getElementById("searchBox");
+    const tableBody = document.getElementById("doctorTableBody");
 
+    searchBox.addEventListener("input", function () {
+      const name = this.value.trim();
+
+      fetch(`/search-doctor?name=${encodeURIComponent(name)}`)
+        .then(res => res.json())
+        .then(data => {
+          tableBody.innerHTML = "";
+
+          if (data.length === 0) {
+            tableBody.innerHTML = "<tr><td colspan='7'>No doctors found</td></tr>";
+            return;
+          }
+
+          data.forEach(doctor => {
+            const row = `
+              <tr>
+                <td>${doctor.doctor_id}</td>
+                <td>${doctor.doctor_name}</td>
+                <td>${doctor.doctor_specialization}</td>
+                <td>${doctor.doctor_contact}</td>
+                <td>${doctor.doctor_experience}</td>
+                <td>${doctor.status}</td>
+                <td>
+                  <a href="/admin/edit-doctor/${doctor.doctor_id}">Edit</a> |
+                  <a href="/admin/delete-doctor/${doctor.doctor_id}" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+              </tr>`;
+            tableBody.innerHTML += row;
+          });
+        });
+    });
+  </script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor List</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    #searchBox {
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 300px;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    tr:hover {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Doctor List</h2>
+
+  <input type="text" id="searchBox" placeholder="Search by doctor name..." />
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Specialization</th>
+        <th>Contact</th>
+        <th>Experience</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="doctorTableBody">
+      <% doctors.forEach(doctor => { %>
+      <tr>
+        <td><%= doctor.doctor_id %></td>
+        <td><%= doctor.doctor_name %></td>
+        <td><%= doctor.doctor_specialization %></td>
+        <td><%= doctor.doctor_contact %></td>
+        <td><%= doctor.doctor_experience %></td>
+        <td><%= doctor.status %></td>
+        <td>
+          <a href="/admin/edit-doctor/<%= doctor.doctor_id %>">Edit</a> |
+          <a href="/admin/delete-doctor/<%= doctor.doctor_id %>" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <script>
+    document.getElementById("searchBox").addEventListener("input", function () {
+      const query = this.value.trim();
+      fetch(`/search-doctor?name=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          const tableBody = document.getElementById("doctorTableBody");
+          tableBody.innerHTML = "";
+
+          if (data.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="7">No doctors found.</td></tr>`;
+            return;
+          }
+
+          data.forEach(doctor => {
+            const row = `
+              <tr>
+                <td>${doctor.doctor_id}</td>
+                <td>${doctor.doctor_name}</td>
+                <td>${doctor.doctor_specialization}</td>
+                <td>${doctor.doctor_contact}</td>
+                <td>${doctor.doctor_experience}</td>
+                <td>${doctor.status}</td>
+                <td>
+                  <a href="/admin/edit-doctor/${doctor.doctor_id}">Edit</a> |
+                  <a href="/admin/delete-doctor/${doctor.doctor_id}" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+              </tr>
+            `;
+            tableBody.innerHTML += row;
+          });
+        });
+    });
+  </script>
 </body>
 </html>
