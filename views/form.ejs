@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -16,40 +17,42 @@
         }
     </style>
 </head>
+
 <body class="login-body">
     <div class="login-container">
         <h2 class="login-title">Login</h2>
 
-        <% if (typeof error !== 'undefined') { %>
+        <% if (typeof error !=='undefined' ) { %>
             <div class="error-message">
                 <%= error %>
             </div>
-        <% } %>
+            <% } %>
 
-        <form class="login-form" action="/adminlogin" method="POST">   <!--  -->
-            <!-- Role Selection Dropdown -->
-            <div class="input-group">
-                <label for="role">Select Role</label>
-                <select id="role" name="role">
-                    <option value="">-- Select Role --</option>
-                    <option value="admin">Admin</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="receptionist">Receptionist</option>
-                </select>
-            </div>
+                <form class="login-form" action="/adminlogin" method="POST"> <!--  -->
+                    <!-- Role Selection Dropdown -->
+                    <div class="input-group">
+                        <label for="role">Select Role</label>
+                        <select id="role" name="role">
+                            <option value="">-- Select Role --</option>
+                            <option value="admin">Admin</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="reception">Receptionist</option>
+                        </select>
+                    </div>
 
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required autocomplete="off">
-            </div>
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required autocomplete="off">
+                    </div>
 
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required autocomplete="off">
-            </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required autocomplete="off">
+                    </div>
 
-            <button type="submit" class="login-btn">Login</button>
-        </form>
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
     </div>
 </body>
+
 </html>
