@@ -7,6 +7,7 @@
     body {
       font-family: Arial;
       display: flex;
+      margin: 0;
     }
 
     .sidebar {
@@ -18,12 +19,16 @@
     }
 
     .sidebar h3 {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .sidebar ul {
       list-style: none;
       padding: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 8px;
     }
 
     .sidebar ul li a {
@@ -32,7 +37,6 @@
       color: white;
       text-decoration: none;
       border-radius: 4px;
-      margin-bottom: 8px;
       background: #0056b3;
     }
 
@@ -40,13 +44,23 @@
       background: #004099;
     }
 
+    .submenu {
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+
+    .submenu li a {
+      background: #0069d9;
+    }
+
     .content {
       flex: 1;
-      padding: 20px;
+      padding: 40px;
     }
 
     .logout {
-      float: right;
+      display: inline-block;
+      margin-top: 20px;
       text-decoration: none;
       background: red;
       color: white;
@@ -60,8 +74,14 @@
     <h3>Reception Panel</h3>
     <ul>
       <li><a href="#">Patient</a></li>
-      <li><a href="#">Role</a></li>
-      <li><a href="#">Nurse</a></li>
+      <li><a href="#">Room</a></li>
+      <li>
+        <a href="#">Nurse</a>
+        <ul class="submenu">
+          <li><a href="/reception/add-nurse">Add Nurse</a></li>
+          <li><a href="/reception/view-nurse">View Nurse</a></li>
+        </ul>
+      </li>
       <li><a href="/logout" class="logout">Logout</a></li>
     </ul>
   </div>

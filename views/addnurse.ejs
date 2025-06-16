@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Nurse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 20px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a.back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Add Nurse</h2>
+    <form action="/reception/add-nurse" method="POST">
+      <label for="nurse_name">Nurse Name</label>
+      <input type="text" name="nurse_name" id="nurse_name" required>
+
+      <label for="nurse_contact">Contact</label>
+      <input type="text" name="nurse_contact" id="nurse_contact">
+
+      <label for="nurse_shift">Shift</label>
+      <select name="nurse_shift" id="nurse_shift" required>
+        <option value="">-- Select Shift --</option>
+        <option value="Morning">Morning</option>
+        <option value="Evening">Evening</option>
+        <option value="Night">Night</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <a class="back" href="/reception/dashboard">← Back to Dashboard</a>
+  </div>
+</body>
+</html>
