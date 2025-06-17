@@ -43,3 +43,16 @@ exports.updateNurse = (id, data, callback) => {
     callback
   );
 };
+
+exports.searchNurseByName = (name, callback) => {
+  const searchTerm = `%${name}%`;
+  const query = `SELECT * FROM nurse WHERE nurse_name LIKE ?`;
+
+  db.query(query, [searchTerm], (err, results) => {
+    if (err) {
+      console.error("Error searching nurse:", err);
+      return callback(err, null);
+    }
+    return callback(null, results);
+  });
+};
