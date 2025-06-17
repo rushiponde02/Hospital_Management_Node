@@ -36,3 +36,44 @@ exports.addPatient = (req, res) => {
     res.redirect("/reception/view-patients");
   });
 };
+
+exports.viewPatients = (req, res) => {
+  const query = `
+    SELECT p.*, r.room_type, n.nurse_name, d.doctor_name
+    FROM patient p
+    LEFT JOIN room r ON p.room_no = r.room_no
+    LEFT JOIN nurse n ON p.nurse_id = n.nurse_id
+    LEFT JOIN doctor d ON p.doctor_id = d.doctor_id
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching patients:", err);
+      return res.status(500).send("Database error");
+    }
+
+    res.render("viewpatient", { patients: results });
+  });
+};
+
+exports.searchPatient = (req, res) => {
+  const name = req.query.name || "";
+  const searchTerm = `%${name}%`;
+
+  const query = `
+    SELECT p.*, r.room_type, n.nurse_name, d.doctor_name
+    FROM patient p
+    LEFT JOIN room r ON p.room_no = r.room_no
+    LEFT JOIN nurse n ON p.nurse_id = n.nurse_id
+    LEFT JOIN doctor d ON p.doctor_id = d.doctor_id
+    WHERE p.patient_name LIKE ?
+  `;
+
+  db.query(query, [searchTerm], (err, results) => {
+    if (err) {
+      console.error("Search Error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results);
+  });
+};
