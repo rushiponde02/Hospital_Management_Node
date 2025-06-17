@@ -180,6 +180,8 @@ router.get("/search-room", roomController.searchRoom);
 //patient Routes
 router.get("/reception/add-patient", patientController.renderAddPatientForm);
 router.post("/reception/add-patient", patientController.addPatient);
+router.get("/reception/view-patient", patientController.viewPatients);
+router.get("/search-patient", patientController.searchPatient);
 
 
 module.exports = router;
