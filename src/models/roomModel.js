@@ -34,3 +34,9 @@ exports.updateRoom = (room_no, data, callback) => {
 exports.deleteRoom = (room_no, callback) => {
   db.query("DELETE FROM room WHERE room_no = ?", [room_no], callback);
 };
+
+exports.searchRoomByNumber = (roomNo, callback) => {
+  const query = `SELECT * FROM room WHERE room_no LIKE ?`;
+  const searchTerm = `%${roomNo}%`;
+  db.query(query, [searchTerm], callback);
+};

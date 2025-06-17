@@ -50,3 +50,14 @@ exports.deleteRoom = (req, res) => {
     res.redirect("/reception/view-rooms");
   });
 };
+
+exports.searchRoom = (req, res) => {
+  const roomNo = req.query.room_no || "";
+  Room.searchRoomByNumber(roomNo, (err, results) => {
+    if (err) {
+      console.error("Error searching room:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results);
+  });
+};
