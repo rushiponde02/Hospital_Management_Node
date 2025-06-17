@@ -5,13 +5,13 @@ exports.renderAddRoom = (req, res) => {
 };
 
 exports.addRoom = (req, res) => {
-  console.log("Room Form Data:", req.body); // ✅ Should now print actual values
+  console.log("Room Form Data:", req.body);
   Room.addRoom(req.body, (err) => {
     if (err) {
       console.error("Error saving room:", err);
       return res.status(500).send("Error saving room");
     }
-    res.redirect("/reception/view-room");
+    res.redirect("/reception/add-room");
   });
 };
 
