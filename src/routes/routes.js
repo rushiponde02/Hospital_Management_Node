@@ -166,7 +166,7 @@ router.get("/reception/add-nurse", (req, res) => {
 router.post("/reception/add-nurse", nurseController.addNurse);
 
 router.get('/reception/view-nurse', nurseController.viewNurses);
-
+router.get("/search-nurse", nurseController.searchNurse);
 //Rooms Routes
 
 router.get("/reception/add-room",roomController.renderAddRoom);
@@ -175,6 +175,8 @@ router.get("/reception/view-rooms", roomController.viewRoom);
 router.get("/reception/edit-room/:room_no", roomController.renderEditRoom);
 router.post("/reception/edit-room/:room_no", roomController.updateRoom);
 router.get("/reception/delete-room/:room_no", roomController.deleteRoom);
+router.get("/search-room", roomController.searchRoom);
+
 
 module.exports = router;
 
