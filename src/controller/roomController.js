@@ -1,0 +1,52 @@
+const Room = require('../models/roomModel');
+
+exports.renderAddRoom = (req, res) => {
+  res.render("addroom");
+};
+
+exports.addRoom = (req, res) => {
+  console.log("Room Form Data:", req.body); // ✅ Should now print actual values
+  Room.addRoom(req.body, (err) => {
+    if (err) {
+      console.error("Error saving room:", err);
+      return res.status(500).send("Error saving room");
+    }
+    res.redirect("/reception/view-room");
+  });
+};
+
+
+
+exports.viewRoom = (req, res) => {
+  Room.getAllRooms((err, results) => {
+    if (err) 
+        return res.status(500).send("Error fetching rooms");
+    res.render("viewroom", { rooms: results });
+  });
+};
+
+exports.renderEditRoom = (req, res) => {
+  const room_no = req.params.room_no;
+  Room.getRoomByNo(room_no, (err, results) => {
+    if (err || results.length === 0) return res.status(404).send("Room not found");
+    res.render("editroom", { room: results[0] });
+  });
+};
+
+// Handle update form submission
+exports.updateRoom = (req, res) => {
+  const room_no = req.params.room_no;
+  Room.updateRoom(room_no, req.body, (err) => {
+    if (err) return res.status(500).send("Update failed");
+    res.redirect("/reception/view-rooms");
+  });
+};
+
+// Handle delete
+exports.deleteRoom = (req, res) => {
+  const room_no = req.params.room_no;
+  Room.deleteRoom(room_no, (err) => {
+    if (err) return res.status(500).send("Delete failed");
+    res.redirect("/reception/view-rooms");
+  });
+};
