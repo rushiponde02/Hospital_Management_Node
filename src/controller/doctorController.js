@@ -63,3 +63,41 @@ exports.showNotVisitedPatients = (req, res) => {
     });
   });
 };
+
+exports.viewAssignedPatients = (req, res) => {
+  const doctorUsername = req.session.user?.username;
+
+  // Get doctor_id by username (assuming doctor username is unique)
+  const getDoctorIdQuery = `
+    SELECT d.doctor_id FROM doctor d
+    JOIN users u ON d.user_id = u.user_id
+    WHERE u.username = ?
+  `;
+
+  db.query(getDoctorIdQuery, [doctorUsername], (err, results) => {
+    if (err || results.length === 0) {
+      console.error("Error fetching doctor ID:", err);
+      return res.status(500).send("Doctor not found");
+    }
+
+    const doctorId = results[0].doctor_id;
+
+    const patientQuery = `
+      SELECT p.*, d.doctor_name, r.room_type, n.nurse_name
+      FROM patient p
+      LEFT JOIN doctor d ON p.doctor_id = d.doctor_id
+      LEFT JOIN room r ON p.room_no = r.room_no
+      LEFT JOIN nurse n ON p.nurse_id = n.nurse_id
+      WHERE p.doctor_id = ?
+    `;
+
+    db.query(patientQuery, [doctorId], (err2, patients) => {
+      if (err2) {
+        console.error("Error fetching assigned patients:", err2);
+        return res.status(500).send("Error loading patients");
+      }
+
+      res.render("assignpatients", { patients });
+    });
+  });
+};
