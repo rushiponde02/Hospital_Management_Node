@@ -10,3 +10,4 @@ exports.createUser = async (username, password, role, callback) => {
     callback(err, null);
   }
 };
+

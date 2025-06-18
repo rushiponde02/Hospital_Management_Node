@@ -64,6 +64,7 @@ const conn = require("../config/db");
 const nurseController = require("../controller/nurseController");
 const roomController=require("../controller/roomController");
 const patientController=require("../controller/patientController")
+const medicineController = require("../controller/medicineController");
 
 router.get("/", (req, res) => {
   res.render("front");
@@ -183,8 +184,16 @@ router.post("/reception/add-patient", patientController.addPatient);
 router.get("/reception/view-patient", patientController.viewPatients);
 router.get("/search-patient", patientController.searchPatient);
 
+//medicine Routes
+router.get("/doctor/add-medicine", medicineController.renderAddMedicineForm);
+router.post("/doctor/add-medicine", medicineController.addMedicine);
+router.get("/doctor/view-medicine", medicineController.viewMedicines);
+router.get("/doctor/patient-visited", doctorController.showVisitedPatients);
+router.get("/doctor/patient-not-visited", doctorController.showNotVisitedPatients);
+
 
 module.exports = router;
+
 
 
 
