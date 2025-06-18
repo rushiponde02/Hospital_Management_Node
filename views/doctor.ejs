@@ -21,14 +21,30 @@
   <div class="sidebar">
     <h3>Doctor Panel</h3>
     <ul>
-      <li><a href="#">Patients</a></li>
-      <li><a href="#">Medicine</a></li>
-      <li><a href="/logout">Logout</a></li>
-    </ul>
+     <li>
+        <h2>Patient</h2>
+        <ul class="submenu">
+          <li><a href="/doctor/patient-visited">Visited</a></li>
+          <li><a href="/doctor/patient-not-visited">Not Visited</a></li>
+          <li><a href="#">Asign Patient</a></li>
+        </ul>
+      </li>
+
+       <li>
+        <h2>Medicine</h2>
+        <ul class="submenu">
+          <li><a href="/doctor/add-medicine">Add Medicine</a></li>
+          <li><a href="/doctor/view-medicine">View Medicine</a></li>
+        </ul>
+      </li>
+
+    <li><a href="/logout" class="logout">Logout</a></li>      
+  </ul>
   </div>
   <div class="content">
-    <h2>Welcome, Dr. <%= user.username %></h2>
+    <h2 style="background-color: rgba(157, 64, 245, 0.318);">Welcome, Dr. <%= user.username %></h2>
     <p>Select an option from the sidebar.</p>
   </div>
 </body>
 </html>
+

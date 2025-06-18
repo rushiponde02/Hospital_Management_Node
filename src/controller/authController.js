@@ -141,3 +141,4 @@ exports.searchRec = (req, res) => {
 //render("pageName"); --> controller ---------- > model    (controler  <------  model)
 
 //serachBar - url
+

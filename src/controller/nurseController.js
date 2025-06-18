@@ -1,6 +1,6 @@
 const Nurse = require("../models/nurseModel");
 const nurseModel = require("../models/nurseModel");
-
+const db = require("../config/db");
 
 exports.addNurse = (req, res) => {
   const { nurse_name, nurse_contact, nurse_shift } = req.body;

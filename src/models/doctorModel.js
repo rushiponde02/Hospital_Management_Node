@@ -41,3 +41,4 @@ exports.updateDoctor = (data, callback) => {
     callback
   );
 };
+

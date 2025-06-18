@@ -1,4 +1,5 @@
 const Doctor = require("../models/doctorModel");
+const db = require("../config/db");
 
 exports.viewDoctors = (req, res) => {
   Doctor.getAllDoctors((err, results) => {
@@ -39,4 +40,26 @@ exports.doctorDashboard = (req, res) => {
 
   const user = req.session.user || { username: "Doctor" };
   res.render("doctor", { user });
+};
+
+exports.showVisitedPatients = (req, res) => {
+  const query = `SELECT * FROM patient WHERE status = 'Visited'`;
+  db.query(query, (err, results) => {
+    if (err) return res.status(500).send("Database error");
+    res.render("doctor_patient_list", {
+      patients: results,
+      title: "Visited Patients"
+    });
+  });
+};
+
+exports.showNotVisitedPatients = (req, res) => {
+  const query = `SELECT * FROM patient WHERE status = 'Not Visited'`;
+  db.query(query, (err, results) => {
+    if (err) return res.status(500).send("Database error");
+    res.render("doctor_patient_list", {
+      patients: results,
+      title: "Not Visited Patients"
+    });
+  });
 };
