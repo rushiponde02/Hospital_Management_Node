@@ -8,23 +8,23 @@
 </head>
 
 <body>
-  <div class="container mt-5">
-   <h2 class="mb-4">Prescribe Medicine for: <%= patient.patient_name %></h2>
+  <!-- <%- include('receptionNavbar') %> -->
+    <div class="container mt-5">
 
 
-    <form action="/doctor/add-medicine/<%=patient.patient_id %>" method="POST">
-  <label>Medicine Name</label>
-  <input type="text" name="medicine_name" required>
+      <form action="/reception/add-medicine" method="POST">
+        <label>Medicine Name</label>
+        <input type="text" name="medicine_name" required>
 
-  <label>Price</label>
-  <input type="number" step="0.01" name="price_medicine" required>
+        <label>Price</label>
+        <input type="number" step="0.01" name="price_medicine" required>
 
-  <button type="submit">Add Medicine</button>
-</form>
+        <button type="submit">Add Medicine</button>
+      </form>
 
 
-    <a href="/doctor/assign-patient" class="btn btn-secondary mt-3">Back</a>
-  </div>
+      <a href="/doctor/assign-patient" class="btn btn-secondary mt-3">Back</a>
+    </div>
 </body>
 
 </html>

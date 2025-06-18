@@ -40,3 +40,12 @@ exports.insertPatient = (data, callback) => {
   );
 };
 
+exports.getPatientDetails = (patientId, callback) => {
+  let getPatientQuery = "select * from patient where patient_id = ?"; //join 
+  db.query(getPatientQuery, [patientId], (err, result) => {
+    if (err) {
+      return callback(err, null);
+    }
+    return callback(null, result);
+  });
+};

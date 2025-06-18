@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prescription - Patient</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    select, button {
+      padding: 10px;
+      width: 100%;
+      margin-top: 5px;
+    }
+    .btn-check {
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Patient Prescription Details</h2>
+
+  <!-- Patient Info -->
+  <div class="section">
+    <h3>Patient Details</h3>
+    <table>
+      <tr><td><strong>ID:</strong></td><td><%= patientInfo.patient_id %></td></tr>
+      <tr><td><strong>Name:</strong></td><td><%= patientInfo.patient_name %></td></tr>
+      <tr><td><strong>Age:</strong></td><td><%= patientInfo.patient_age %></td></tr>
+      <tr><td><strong>Gender:</strong></td><td><%= patientInfo.patient_gender %></td></tr>
+      <tr><td><strong>Contact:</strong></td><td><%= patientInfo.patient_contact %></td></tr>
+      <tr><td><strong>Issue:</strong></td><td><%= patientInfo.patient_issue %></td></tr>
+      <tr><td><strong>Status:</strong></td><td><%= patientInfo.status %></td></tr>
+    </table>
+  </div>
+
+  <!-- Medicine Dropdown -->
+  <div class="section">
+    <h3>Prescribe Medicine</h3>
+    <form action="/doctor/prescribe-medicine/<%= patientInfo.patient_id %>" method="POST">
+      <label for="medicine">Select Medicine:</label>
+      <select name="medicine_name" id="medicine" required>
+        <option value="">-- Select Medicine --</option>
+        <% medicine.forEach(med => { %>
+          <option value="<%= med.medicine_name %>"><%= med.medicine_name %> (₹<%= med.price_medicine %>)</option>
+        <% }) %>
+      </select>
+      <button type="submit">Add Prescription</button>
+    </form>
+  </div>
+
+  <!-- Check & Ready Button -->
+  <div class="section">
+    <form action="/doctor/check-patient/<%= patientInfo.patient_id %>" method="POST">
+      <button type="submit" class="btn-check">Mark Patient as Checked (Ready for Billing)</button>
+    </form>
+  </div>
+
+</body>
+</html>

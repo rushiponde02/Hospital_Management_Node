@@ -102,28 +102,3 @@ exports.viewAssignedPatients = (req, res) => {
   });
 };
 
-exports.renderAddMedicineForm = (req, res) => {
-  const patientId = req.params.patientId; // make sure this matches your route
-  console.log("Patient id ", patientId);
-
-  if (!patientId) {
-    return res.status(400).send("Patient ID required");
-  }
-
-  const sql = "SELECT * FROM patient WHERE patient_id = ?";
-
-  db.query(sql, [patientId], (err, results) => {
-    if (err) {
-      console.error("DB error:", err);
-      return res.status(500).send("Database error");
-    }
-
-    if (results.length === 0) {
-      return res.status(404).send("Patient not found");
-    }
-    console.log("patient  ", results[0]);
-
-    // Pass the patient data to the view so EJS can render patient.patient_name
-    res.render("addmedicine", { patient: results[0] });
-  });
-};
