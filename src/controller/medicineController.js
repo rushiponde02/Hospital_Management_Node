@@ -25,3 +25,4 @@ exports.viewMedicines = (req, res) => {
     res.render("viewmedicine", { medicines: results });
   });
 };
+

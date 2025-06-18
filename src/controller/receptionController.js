@@ -139,3 +139,4 @@ exports.receptionDashboard = (req, res) => {
 
   res.render("reception", { user: req.session.user });
 };
+

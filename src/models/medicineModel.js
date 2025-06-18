@@ -11,3 +11,4 @@ exports.getAllMedicines = (callback) => {
   db.query(query, callback);
 };
 
+

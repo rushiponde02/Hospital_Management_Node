@@ -39,3 +39,4 @@ exports.insertPatient = (data, callback) => {
     callback
   );
 };
+
