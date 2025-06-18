@@ -1,7 +1,6 @@
 const Medicine = require("../models/medicineModel");
 
 exports.renderAddMedicineForm = (req, res) => {
-  const db = require("../config/db");
   db.query("SELECT patient_id, patient_name FROM patient", (err, patients) => {
     if (err) return res.status(500).send("Failed to load patients");
     res.render("addmedicine", { patients });
@@ -9,8 +8,12 @@ exports.renderAddMedicineForm = (req, res) => {
 };
 
 exports.addMedicine = (req, res) => {
-  const data = req.body;
-  Medicine.addMedicine(data, (err) => {
+  const data = req.body.medicine_name;
+  const price = req.body.price_medicine;
+  const patientId = req.params.patientId;
+  console.log(data, patientId, price);
+
+  Medicine.addMedicine(data, price, patientId, (err) => {
     if (err) {
       console.error("Error saving medicine:", err);
       return res.status(500).send("Error saving medicine");
@@ -25,4 +28,3 @@ exports.viewMedicines = (req, res) => {
     res.render("viewmedicine", { medicines: results });
   });
 };
-
