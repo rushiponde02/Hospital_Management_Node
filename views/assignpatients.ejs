@@ -47,7 +47,7 @@
       <td><%= p.status %></td>
       <td><%= p.admitted_date ? p.admitted_date.toISOString().split('T')[0] : '' %></td>
       <td>
-        <a href="/doctor/add-medicine/<%= p.patient_id %>" class="btn btn-sm btn-success">Prescription</a>
+        <a href="/doctor/show-patient/<%= p.patient_id %>" class="btn btn-sm btn-success">Prescription</a>
       </td>
     </tr>
   <% }) %>

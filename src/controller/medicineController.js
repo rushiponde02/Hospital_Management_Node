@@ -10,15 +10,15 @@ exports.renderAddMedicineForm = (req, res) => {
 exports.addMedicine = (req, res) => {
   const data = req.body.medicine_name;
   const price = req.body.price_medicine;
-  const patientId = req.params.patientId;
-  console.log(data, patientId, price);
+  console.log(data, price);
 
-  Medicine.addMedicine(data, price, patientId, (err) => {
+  Medicine.addMedicine(data, price, (err) => {
     if (err) {
       console.error("Error saving medicine:", err);
       return res.status(500).send("Error saving medicine");
     }
-    res.redirect("/doctor/dashboard");
+    
+    res.redirect("/reception/dashboard");
   });
 };
 
@@ -27,4 +27,8 @@ exports.viewMedicines = (req, res) => {
     if (err) return res.status(500).send("Failed to fetch medicine data");
     res.render("viewmedicine", { medicines: results });
   });
+};
+
+exports.renderAddMedicineForm = (req, res) => {
+  res.render("addmedicine");
 };
