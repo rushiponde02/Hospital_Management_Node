@@ -62,8 +62,8 @@ const doctorController = require("../controller/doctorController");
 const receptionController = require("../controller/receptionController");
 const conn = require("../config/db");
 const nurseController = require("../controller/nurseController");
-const roomController=require("../controller/roomController");
-const patientController=require("../controller/patientController")
+const roomController = require("../controller/roomController");
+const patientController = require("../controller/patientController");
 const medicineController = require("../controller/medicineController");
 
 router.get("/", (req, res) => {
@@ -135,11 +135,10 @@ router.get(
 router.post("/admin/edit-reception/:id", receptionController.updateReception);
 router.get("/admin/delete-reception/:id", receptionController.deleteReception);
 
-router.get('/reception/view-nurse', nurseController.viewNurses);
-router.get('/reception/delete-nurse/:id', nurseController.deleteNurse);
-router.get('/reception/edit-nurse/:id', nurseController.editNurseForm);
-router.post('/reception/update-nurse/:id', nurseController.updateNurse);
-
+router.get("/reception/view-nurse", nurseController.viewNurses);
+router.get("/reception/delete-nurse/:id", nurseController.deleteNurse);
+router.get("/reception/edit-nurse/:id", nurseController.editNurseForm);
+router.post("/reception/update-nurse/:id", nurseController.updateNurse);
 
 router.get("/search-doctor", (req, res) => {
   const name = req.query.name || "";
@@ -166,12 +165,12 @@ router.get("/reception/add-nurse", (req, res) => {
 // Handle form submission
 router.post("/reception/add-nurse", nurseController.addNurse);
 
-router.get('/reception/view-nurse', nurseController.viewNurses);
+router.get("/reception/view-nurse", nurseController.viewNurses);
 router.get("/search-nurse", nurseController.searchNurse);
 //Rooms Routes
 
-router.get("/reception/add-room",roomController.renderAddRoom);
-router.post("/reception/add-room",roomController.addRoom);
+router.get("/reception/add-room", roomController.renderAddRoom);
+router.post("/reception/add-room", roomController.addRoom);
 router.get("/reception/view-rooms", roomController.viewRoom);
 router.get("/reception/edit-room/:room_no", roomController.renderEditRoom);
 router.post("/reception/edit-room/:room_no", roomController.updateRoom);
@@ -189,17 +188,24 @@ router.get("/doctor/add-medicine", medicineController.renderAddMedicineForm);
 router.post("/doctor/add-medicine", medicineController.addMedicine);
 router.get("/doctor/view-medicine", medicineController.viewMedicines);
 router.get("/doctor/patient-visited", doctorController.showVisitedPatients);
-router.get("/doctor/patient-not-visited", doctorController.showNotVisitedPatients);
+router.get(
+  "/doctor/patient-not-visited",
+  doctorController.showNotVisitedPatients
+);
 router.get("/doctor/assign-patient", doctorController.viewAssignedPatients);
 
-router.get('/doctor/add-medicine/:patientId', doctorController.renderAddMedicineForm);
+router.get(
+  "/reception/add-medicine/",
+  medicineController.renderAddMedicineForm
+);
 
-router.post('/doctor/add-medicine/:patientId', medicineController.addMedicine);
+router.post("/reception/add-medicine/", medicineController.addMedicine);
 
+router.get("/reception/view-medicine", medicineController.viewMedicines);
+
+///doctor/show-patient/<%= p.patient_id %>
+router.get("/doctor/show-patient/:patientId", patientController.showPatient);
+router.post("/doctor/prescribe-medicine/:patientId", patientController.prescribeMedicine);
+router.post("/doctor/check-patient/:patientId", patientController.markAsChecked);
 
 module.exports = router;
-
-
-
-
-
