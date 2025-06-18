@@ -24,30 +24,35 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered table-hover">
-                <thead class="table-primary">
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Issue</th>
-                    <th>Room</th>
-                    <th>Nurse</th>
-                    <th>Status</th>
-                    <th>Admitted</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% patients.forEach(p => { %>
-                    <tr>
-                      <td><%= p.patient_id %></td>
-                      <td><%= p.patient_name %></td>
-                      <td><%= p.patient_issue %></td>
-                      <td><%= p.room_no %> (<%= p.room_type %>)</td>
-                      <td><%= p.nurse_name %></td>
-                      <td><%= p.status %></td>
-                      <td><%= p.admitted_date ? p.admitted_date.toISOString().split('T')[0] : '' %></td>
-                    </tr>
-                  <% }) %>
-                </tbody>
+              <thead class="table-primary">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Issue</th>
+    <th>Room</th>
+    <th>Nurse</th>
+    <th>Status</th>
+    <th>Admitted</th>
+    <th>Action</th>
+  </tr>
+</thead>
+<tbody>
+  <% patients.forEach(p => { %>
+    <tr>
+      <td><%= p.patient_id %></td>
+      <td><%= p.patient_name %></td>
+      <td><%= p.patient_issue %></td>
+      <td><%= p.room_no %> (<%= p.room_type %>)</td>
+      <td><%= p.nurse_name %></td>
+      <td><%= p.status %></td>
+      <td><%= p.admitted_date ? p.admitted_date.toISOString().split('T')[0] : '' %></td>
+      <td>
+        <a href="/doctor/add-medicine/<%= p.patient_id %>" class="btn btn-sm btn-success">Prescription</a>
+      </td>
+    </tr>
+  <% }) %>
+</tbody>
+
               </table>
             </div>
           </div>

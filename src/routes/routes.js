@@ -192,6 +192,10 @@ router.get("/doctor/patient-visited", doctorController.showVisitedPatients);
 router.get("/doctor/patient-not-visited", doctorController.showNotVisitedPatients);
 router.get("/doctor/assign-patient", doctorController.viewAssignedPatients);
 
+router.get('/doctor/add-medicine/:patientId', doctorController.renderAddMedicineForm);
+
+router.post('/doctor/add-medicine/:patientId', medicineController.addMedicine);
+
 
 module.exports = router;
 

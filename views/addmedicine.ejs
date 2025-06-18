@@ -1,68 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Add Medicine</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      
-      <!-- Sidebar -->
-      <div class="col-md-3 col-lg-2 bg-primary text-white min-vh-100 p-0">
-        <%- include('doctorNavbar') %>
-      </div>
+  <div class="container mt-5">
+   <h2 class="mb-4">Prescribe Medicine for: <%= patient.patient_name %></h2>
 
-      <!-- Main Content -->
-      <div class="col-md-9 col-lg-10 p-4">
-        <div class="card shadow mx-auto" style="max-width: 600px;">
-          <div class="card-header bg-primary text-black text-center">
-            <h4 class="mb-0">Add Medicine</h4>
-          </div>
-          <div class="card-body">
-            <form action="/doctor/add-medicine" method="POST" class="row g-3">
 
-              <!-- <div class="col-12">
-                <label class="form-label">Patient</label>
-                <select name="patient_id" class="form-select" required>
-                  <option value="">-- Select Patient --</option>
-                  <% patients.forEach(p => { %>
-                    <option value="<%= p.patient_id %>"><%= p.patient_name %></option>
-                  <% }); %>
-                </select>
-              </div> -->
+    <form action="/doctor/add-medicine/<%=patient.patient_id %>" method="POST">
+  <label>Medicine Name</label>
+  <input type="text" name="medicine_name" required>
 
-              <div class="col-12">
-                <label class="form-label">Medicine Name</label>
-                <input type="text" name="medicine_name" class="form-control" required />
-              </div>
+  <label>Price</label>
+  <input type="number" step="0.01" name="price_medicine" required>
 
-              <div class="col-12">
-                <label class="form-label">Price</label>
-                <input type="number" step="0.01" name="price_medicine" class="form-control" required />
-              </div>
+  <button type="submit">Add Medicine</button>
+</form>
 
-              <div class="col-12 d-grid">
-                <button type="submit" class="btn btn-success">Add Medicine</button>
-              </div>
-            </form>
 
-            <div class="text-center mt-3">
-              <a href="/doctor/dashboard" class="btn btn-outline-secondary">← Back to Dashboard</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <a href="/doctor/assign-patient" class="btn btn-secondary mt-3">Back</a>
   </div>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
