@@ -190,6 +190,7 @@ router.post("/doctor/add-medicine", medicineController.addMedicine);
 router.get("/doctor/view-medicine", medicineController.viewMedicines);
 router.get("/doctor/patient-visited", doctorController.showVisitedPatients);
 router.get("/doctor/patient-not-visited", doctorController.showNotVisitedPatients);
+router.get("/doctor/assign-patient", doctorController.viewAssignedPatients);
 
 
 module.exports = router;
