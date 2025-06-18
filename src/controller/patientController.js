@@ -33,7 +33,7 @@ exports.addPatient = (req, res) => {
       console.error("Error saving patient:", err);
       return res.status(500).send("Failed to add patient");
     }
-    res.redirect("/reception/view-patients");
+    res.redirect("/reception/view-patient");
   });
 };
 
