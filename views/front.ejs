@@ -1,100 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Prudent Campus</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Hospital Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+    }
+
+    /* HEADER */
+    header {
+      backdrop-filter: blur(8px);
+  background: linear-gradient(120deg, #007bff, #0056b3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+   
+    .logo img {
+      height: 70px;
+      background-color: #adb5bd;
+      border-radius: 50%;
+    }
+
+    .logo-text .main {
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .logo-text .sub {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .btn-primary-custom {
+      background-color: #fff;
+      color: #0062ff;
+      border-radius: 30px;
+      padding: 10px 25px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary-custom:hover {
+      background-color: #e6f0ff;
+      color: #6496fa;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+        url('https://img.freepik.com/free-photo/healthcare-workers-corridor-hospital_23-2148980727.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 120px 30px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .hero h2 {
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
+
+    .hero .open {
+      margin-top: 20px;
+      font-size: 1rem;
+      background-color: #ffc107;
+      padding: 10px 25px;
+      border-radius: 30px;
+      color: #000;
+      display: inline-block;
+      font-weight: 500;
+    }
+
+    /* INTRO */
+    .intro-text {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    .intro-text p {
+      font-size: 1.1rem;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* CARDS */
+    .cards-section {
+      padding: 40px 20px 80px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .card-body h3 {
+      color: #007bff;
+    }
+
+    .info-card ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .info-card ul li::before {
+      content: '✔ ';
+      color: #28a745;
+    }
+
+    .card-btn {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .card-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #212529;
+      color: #adb5bd;
+      padding: 60px 20px;
+    }
+
+    .footer-section h4 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    .social-icons img {
+      width: 32px;
+      margin-right: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.1);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .cards-section .row {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="4.png" alt="Prudent Campus Logo">
-            <div class="logo-text">
-                <span class="main">Hospital</span><br>
-                <span class="sub">Management System</span>
-            </div>
-        </div>
-        <nav>
-            <div class="buttons">
-                <a href="/getstarted" class="btn">Get Started</a>
-            </div>
-        </nav>
-    </header>
 
-    <main>
-        <div class="hero">
-            <h1>Advanced Hospital Management Software for Healthcare Institutions</h1>
-            <h2>Redefining how healthcare providers manage patient data, resources, and decision-making.</h2>
-            <p class="open">Now Open For Healthcare Ecosystem</p>
-        </div>
-    </main>
+  <!-- HEADER -->
+  <header class="d-flex justify-content-between align-items-center">
+    <div class="logo d-flex align-items-center gap-3">
+      <img src="4.png" alt="Logo">
+      <div class="logo-text">
+        <p class="main">Hospital</p>
+        <p class="sub">Management System</p>
+      </div>
+    </div>
+    <a href="/getstarted" class="btn btn-primary-custom">Get Started</a>
+  </header>
 
-    <section class="intro-text">
-        <p>
-            Discover how Prudent Campus empowers hospitals to enhance patient care, streamline administrative tasks,
-            and leverage modern healthcare technology.
-            Discover how Prudent Campus empowers hospitals to enhance patient care, streamline administrative tasks,
-            and leverage modern healthcare technology.
-        </p>
-        <p>
-            Hospital management involves planning, coordination, and supervision of all operations, ensuring high-quality delivery in clinical services, HR, and finances.
-        </p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Advanced Hospital Management System</h1>
+    <h2>Empowering Healthcare with Innovation</h2>
+    <p class="open">Open for Hospitals, Clinics & Labs</p>
+  </section>
 
-    <section class="cards-section">
+  <!-- INTRO -->
+  <section class="intro-text">
+    <p>Rohit & Rushi CAMPUS streamlines hospital operations, simplifies workflows, improves patient outcomes, and enables data-driven care. From outpatient services to billing and pharmacy, our intelligent platform empowers seamless coordination across departments for improved efficiency and transparency in healthcare delivery.</p>
+
+<p>With advanced features such as real-time patient tracking, doctor scheduling, integrated diagnostics, and automated alerts, our system helps medical staff make faster, more informed decisions. Built on secure cloud architecture, it supports remote access, robust data backups, and compliance with healthcare standards — making it an ideal solution for hospitals, clinics, and laboratories aiming to deliver modern, patient-first care.</p>
+  </section>
+
+  
+  <!-- CARDS -->
+  <section class="cards-section container">
+    <div class="row justify-content-center g-4">
+      <div class="col-md-4">
         <div class="card">
-            <img src="smartcare.png" alt="Advanced Technology">
+          <img src="smartcare.png" class="card-img-top" alt="Smart Healthcare">
+          <div class="card-body">
             <h3>Smart Healthcare</h3>
-            <p>Empower your hospital with cutting-edge digital solutions and real-time data analytics.</p>
+            <p>Digitize patient care with real-time data, AI assistance, and connected cloud solutions.</p>
+          </div>
         </div>
+      </div>
+      <div class="col-md-4">
         <div class="card">
-            <img src="2.jpg" alt="Patient Care">
-            <h3>Patient-Centric Design</h3>
-            <p>Enhance patient engagement and care coordination with our intuitive interface.</p>
+          <img src="2.jpg" class="card-img-top" alt="Patient Focus">
+          <div class="card-body">
+            <h3>Patient-Centered Design</h3>
+            <p>Deliver personalized care experiences with intuitive, patient-first interfaces and real-time access.</p>
+          </div>
         </div>
+      </div>
+      <div class="col-md-4">
         <div class="card info-card">
+          <div class="card-body">
             <h3>Why Prudent Campus?</h3>
-            <ul>
-                <li>✔ Streamlined Operations</li>
-                <li>✔ Real-Time Monitoring</li>
-                <li>✔ Cloud-Enabled Security</li>
-                <li>✔ Scalable for All Sizes</li>
-            </ul>
-            <a href="/getstarted" class="btn card-btn">Get Started</a>
+            <ul> <li>Real-Time Monitoring</li> <li>Data Security & Automatic Backups</li> <li>Cloud-Powered Infrastructure</li> <li>Smart Reporting & Dashboards</li> <li>Role-Based Access Control</li> <li>Automated Patient Alerts & Reminders</li> <li>Integrated Lab & Pharmacy Systems</li> </ul>
+            <a href="/getstarted" class="card-btn">Start Now</a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section about">
-                <h3>Prudent Campus</h3>
-                <p>Your trusted partner in smart hospital management solutions.</p>
-            </div>
+  <!-- Bootstrap Carousel with Info Cards --> <div id="hospitalInfoCarousel" class="carousel slide py-5" data-bs-ride="carousel"> <div class="carousel-inner container">
 
-            <div class="footer-section contact">
-                <h4>Contact Us</h4>
-                <p>Email: rohitnemade2024@gmail.com</p>
-                <p>Phone: +9309108805</p>
-                <p>Address: 123 Health Stand, Karve Nagar, Pune</p>
-            </div>
+<!-- Slide 1 -->
+<div class="carousel-item active">
+  <div class="row justify-content-center g-4">
+    <div class="col-md-4">
+      <div class="card h-100 text-center p-4 shadow-lg border-0">
+        <div class="display-3 text-primary mb-3"><i class="fas fa-user-injured"></i></div>
+        <h5 class="fw-bold">Patient Management</h5>
+        <p class="text-muted">Track admissions, discharges, and patient history seamlessly with a centralized system.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center p-4 shadow-lg border-0">
+        <div class="display-3 text-success mb-3"><i class="fas fa-user-md"></i></div>
+        <h5 class="fw-bold">Doctor Scheduling</h5>
+        <p class="text-muted">Manage appointments, availability, and consultations for all specialists efficiently.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center p-4 shadow-lg border-0">
+        <div class="display-3 text-warning mb-3"><i class="fas fa-file-invoice-dollar"></i></div>
+        <h5 class="fw-bold">Billing System</h5>
+        <p class="text-muted">Automated billing, invoicing, and insurance integration with minimal errors.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <div class="footer-section social">
-                <h4>Follow Us</h4>
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/mr_selfish_0718/" target="_blank">
-                        <img src="instaicon.png" alt="Instagram" />
-                    </a>
-                    <a href="https://wa.me/9309108805?text=Hello%20I%20need%20help%20with%20hospital%20management%20software" target="_blank">
-                        <img src="https://img.icons8.com/?size=100&id=16713&format=png&color=25d366" alt="WhatsApp" />
-                    </a>
-                </div>
-            </div>
+<!-- Slide 2 -->
+<div class="carousel-item">
+  <div class="row justify-content-center g-4">
+    <div class="col-md-4">
+      <div class="card h-100 text-center p-4 shadow-lg border-0">
+        <div class="display-3 text-danger mb-3"><i class="fas fa-pills"></i></div>
+        <h5 class="fw-bold">Pharmacy Integration</h5>
+        <p class="text-muted">Maintain drug inventory, prescriptions, and supply tracking digitally.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center p-4 shadow-lg border-0">
+        <div class="display-3 text-info mb-3"><i class="fas fa-bed"></i></div>
+        <h5 class="fw-bold">Room Management</h5>
+        <p class="text-muted">Track availability of ICU, general, and deluxe rooms in real-time.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center p-4 shadow-lg border-0">
+        <div class="display-3 text-secondary mb-3"><i class="fas fa-laptop-medical"></i></div>
+        <h5 class="fw-bold">Reports & Analytics</h5>
+        <p class="text-muted">Visualize operational performance through automated dashboards & reports.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div> <!-- Carousel Controls --> <button class="carousel-control-prev" type="button" data-bs-target="#hospitalInfoCarousel" data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="visually-hidden">Previous</span> </button> <button class="carousel-control-next" type="button" data-bs-target="#hospitalInfoCarousel" data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="visually-hidden">Next</span> </button> </div>
+  <!-- FOOTER -->
+ <!-- MODERN FOOTER START -->
+<footer class="footer text-light pt-5 mt-5" style="background: linear-gradient(120deg, #007bff, #0056b3);">
+  <div class="container">
+    <div class="row g-4">
+      <!-- About -->
+      <div class="col-md-4">
+        <h4 class="fw-bold mb-3">Rohit & Rushi Campus</h4>
+        <p class="text-light opacity-75">Empowering smart hospital management with AI, automation, and real-time coordination.</p>
+        <p class="mt-3 small text-white-5 ">Built with ❤️ ⚕☤ in Pune</p>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-4">
+        <h5 class="fw-semibold mb-3">Contact Us</h5>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-envelope me-2"></i> rohitnemade2024@gmail.com</li>
+          <li><i class="fas fa-phone-alt me-2"></i> +91 9309108805</li>
+          <li><i class="fas fa-map-marker-alt me-2"></i> Karve Nagar, Pune</li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-4">
+        <h5 class="fw-semibold mb-3">Follow Us</h5>
+        <div class="d-flex gap-3">
+          <a href="https://www.instagram.com/mr_selfish_071/" class="text-white social-icon" target="_blank">
+            <i class="fab fa-instagram fa-2x"></i>
+          </a>
+          <a href="https://wa.me/930910880?text=Hello" class="text-white social-icon" target="_blank">
+            <i class="fab fa-whatsapp fa-2x"></i>
+          </a>
+          <a href="#" class="text-white social-icon">
+            <i class="fab fa-facebook fa-2x"></i>
+          </a>
+          <a href="#" class="text-white social-icon">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </a>
         </div>
+        <p class="small mt-3 text-white-50">Let's connect and grow!</p>
+      </div>
+    </div>
 
-        <div class="footer-bottom">
-            <p>&copy; 2025 Prudent Campus. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- Divider -->
+    <hr class="border-light mt-4" />
+
+    <!-- Copyright -->
+    <div class="text-center pb-3 text-white-100 small">
+      &copy; 2025 Rohit & Rushi Campus. All rights reserved.
+    </div>
+  </div>
+</footer>
 </body>
 </html>
-

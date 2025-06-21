@@ -185,6 +185,7 @@ router.get("/search-patient", patientController.searchPatient);
 
 //medicine Routes
 router.get("/doctor/add-medicine", medicineController.renderAddMedicineForm);
+
 router.post("/doctor/add-medicine", medicineController.addMedicine);
 router.get("/doctor/view-medicine", medicineController.viewMedicines);
 router.get("/doctor/patient-visited", doctorController.showVisitedPatients);

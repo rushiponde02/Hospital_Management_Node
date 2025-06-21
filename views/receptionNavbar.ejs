@@ -1,51 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <title>Reception Panel</title> <!-- Bootstrap CSS --> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" /> <!-- Font Awesome --> <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" /> <style> body { background-color: #f8f9fa; } .sidebar { background-color: #343a40; color: white; padding: 1rem; height: 100vh; } .sidebar h4 { color: #fff; } .sidebar .nav-link { color: #ffffff; border-radius: 0.375rem; transition: all 0.3s; } .sidebar .nav-link:hover { background-color: #495057; } .sidebar .collapse .nav-link { background-color: #212529; padding-left: 2.5rem; } .sidebar i { margin-right: 10px; } @media (max-width: 768px) { .sidebar { height: auto; } } </style> </head> <body> <div class="sidebar"> <h4><i class="fas fa-hospital-user"></i> Reception Panel</h4> <ul class="nav flex-column mt-4">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-
-<body>
-  <div class="p-3">
-    <h4 class="text-white mb-4">Reception Panel</h4>
-    <ul class="nav flex-column">
-      <li class="nav-item mb-2">
-        <a href="#" class="nav-link text-white bg-dark rounded px-3 py-2">Patient</a>
-        <ul class="list-unstyled ms-3 mt-2">
-          <li><a href="/reception/add-patient" class="text-white d-block py-1 px-2">Add Patient</a></li>
-          <li><a href="/reception/view-patient" class="text-white d-block py-1 px-2">View Patient</a></li>
-        </ul>
-      </li>
-      <li class="nav-item mb-2">
-        <a href="#" class="nav-link text-white bg-dark rounded px-3 py-2">Room</a>
-        <ul class="list-unstyled ms-3 mt-2">
-          <li><a href="/reception/add-room" class="text-white d-block py-1 px-2">Add Room</a></li>
-          <li><a href="/reception/view-rooms" class="text-white d-block py-1 px-2">View Rooms</a></li>
-        </ul>
-      </li>
-      <li class="nav-item mb-2">
-        <a href="#" class="nav-link text-white bg-dark rounded px-3 py-2">Nurse</a>
-        <ul class="list-unstyled ms-3 mt-2">
-          <li><a href="/reception/add-nurse" class="text-white d-block py-1 px-2">Add Nurse</a></li>
-          <li><a href="/reception/view-nurse" class="text-white d-block py-1 px-2">View Nurse</a></li>
-        </ul>
-      </li>
-      <li class="nav-item mb-2">
-        <a href="#" class="nav-link text-white bg-dark rounded px-3 py-2">Medicine</a>
-        <ul class="list-unstyled ms-3 mt-2">
-          <li><a href="/reception/add-medicine" class="text-white d-block py-1 px-2">Add Medicine</a></li>
-          <li><a href="/reception/view-medicine" class="text-white d-block py-1 px-2">View Medicine</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mt-4">
-        <a href="/logout" class="btn btn-danger w-100">Logout</a>
-      </li>
+<!-- Patient -->
+<li class="nav-item mb-2">
+  <a class="nav-link bg-dark d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#patientMenu" role="button" aria-expanded="false">
+    <span><i class="fas fa-user-injured"></i> Patient</span>
+    <i class="fas fa-chevron-down"></i>
+  </a>
+  <div class="collapse" id="patientMenu">
+    <ul class="nav flex-column ms-3">
+      <li><a href="/reception/add-patient" class="nav-link">Add Patient</a></li>
+      <li><a href="/reception/view-patient" class="nav-link">View Patient</a></li>
     </ul>
   </div>
+</li>
 
-</body>
+<!-- Room -->
+<li class="nav-item mb-2">
+  <a class="nav-link bg-dark d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#roomMenu" role="button" aria-expanded="false">
+    <span><i class="fas fa-door-open"></i> Room</span>
+    <i class="fas fa-chevron-down"></i>
+  </a>
+  <div class="collapse" id="roomMenu">
+    <ul class="nav flex-column ms-3">
+      <li><a href="/reception/add-room" class="nav-link">Add Room</a></li>
+      <li><a href="/reception/view-rooms" class="nav-link">View Rooms</a></li>
+    </ul>
+  </div>
+</li>
 
-</html>
+<!-- Nurse -->
+<li class="nav-item mb-2">
+  <a class="nav-link bg-dark d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#nurseMenu" role="button" aria-expanded="false">
+    <span><i class="fas fa-user-nurse"></i> Nurse</span>
+    <i class="fas fa-chevron-down"></i>
+  </a>
+  <div class="collapse" id="nurseMenu">
+    <ul class="nav flex-column ms-3">
+      <li><a href="/reception/add-nurse" class="nav-link">Add Nurse</a></li>
+      <li><a href="/reception/view-nurse" class="nav-link">View Nurse</a></li>
+    </ul>
+  </div>
+</li>
+
+<!-- Medicine -->
+<li class="nav-item mb-2">
+  <a class="nav-link bg-dark d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#medicineMenu" role="button" aria-expanded="false">
+    <span><i class="fas fa-pills"></i> Medicine</span>
+    <i class="fas fa-chevron-down"></i>
+  </a>
+  <div class="collapse" id="medicineMenu">
+    <ul class="nav flex-column ms-3">
+      <li><a href="/reception/add-medicine" class="nav-link">Add Medicine</a></li>
+      <li><a href="/reception/view-medicine" class="nav-link">View Medicine</a></li>
+    </ul>
+  </div>
+</li>
+
+<!-- Logout -->
+<li class="nav-item mt-4">
+  <a href="/logout" class="btn btn-danger w-100">
+    <i class="fas fa-sign-out-alt me-2"></i>Logout
+  </a>
+</li>
+
+</ul> </div> <!-- Bootstrap JS (with Popper) --> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> </body> </html>
