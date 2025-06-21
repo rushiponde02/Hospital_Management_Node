@@ -1,46 +1,116 @@
-<!-- views/viewBill.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Patient Bill</title>
+  <meta charset="UTF-8" />
+  <title>RR Hospital - Patient Bill</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #eef2f7;
+    }
+    .bill-container {
+      max-width: 900px;
+      margin: auto;
+       background-color: rgba(241, 206, 8, 0.364);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    .header-logo {
+      height: 70px;
+    }
+    .section-title {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #004085;
+      border-left: 5px solid #17a2b8;
+      padding-left: 10px;
+      margin-bottom: 1rem;
+    }
+    .info-block p {
+      margin: 0;
+      padding: 4px 0;
+    }
+    .line {
+      border-bottom: 1px solid #ccc;
+      margin: 20px 0;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .icon {
+      color: #17a2b8;
+      margin-right: 8px;
+    }
+  </style>
 </head>
-<body class="p-4">
-  <div class="container">
-    <h2 class="text-center mb-4">🧾 Patient Bill - RR Hospital</h2>
-
-    <div class="card p-4 mb-4">
-      <h5 class="mb-3">👨‍⚕️ Doctor Info</h5>
-      <p><strong>Name:</strong> <%= bill.doctor_name %></p>
-      <p><strong>Specialization:</strong> <%= bill.doctor_specialization %></p>
+<body class="py-5">
+  <div class="container bill-container">
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <img src="/public/4.png" alt="" class="header-logo mb-2" />
+      <h2 class="text-info fw-bold">RR Multi-Speciality Hospital</h2>
+      <p class="text-muted">📍 Pune, India &nbsp; | &nbsp; 📞 +91 9309108805</p>
     </div>
 
-    <div class="card p-4 mb-4">
-      <h5 class="mb-3">👤 Patient Info</h5>
-      <p><strong>Name:</strong> <%= bill.patient_name %></p>
-      <p><strong>Age:</strong> <%= bill.patient_age %></p>
-      <p><strong>Gender:</strong> <%= bill.patient_gender %></p>
-      <p><strong>Contact:</strong> <%= bill.patient_contact %></p>
-      <p><strong>Issue:</strong> <%= bill.patient_issue %></p>
-      <p><strong>Admitted:</strong> <%= bill.admitted_date?.toISOString().split("T")[0] %></p>
-      <p><strong>Discharge:</strong> <%= bill.discharge_date?.toISOString().split("T")[0] || '-' %></p>
+    <!-- Bill Title -->
+    <h4 class="text-center text-dark mb-4"><i class="bi bi-receipt-cutoff icon"></i>Billing Summary</h4>
+
+    <!-- Doctor Info -->
+    <div class="mb-4">
+      <h5 class="section-title"><i class="bi bi-person-badge icon"></i>Doctor Details</h5>
+      <div class="info-block">
+        <p><strong>Name:</strong> <%= bill.doctor_name %></p>
+        <p><strong>Specialization:</strong> <%= bill.doctor_specialization %></p>
+      </div>
     </div>
 
-    <div class="card p-4">
-      <h5 class="mb-3">💳 Billing Details</h5>
-      <p><strong>Room Charges:</strong> ₹<%= bill.room_charges %></p>
-      <p><strong>Doctor Charges:</strong> ₹<%= bill.doctor_charges %></p>
-      <p><strong>Medicine Charges:</strong> ₹<%= bill.medicine_charges %></p>
-      <p><strong>Medicine Quantity:</strong> <%= bill.medicine_quantity %></p>
-      <p><strong>Total Amount:</strong> ₹<strong><%= bill.total_amount %></strong></p>
-      <p><strong>Billing Date:</strong> <%= bill.billing_date?.toISOString().split("T")[0] %></p>
+    <!-- Patient Info -->
+    <div class="mb-4">
+      <h5 class="section-title"><i class="bi bi-person-vcard icon"></i>Patient Details</h5>
+      <div class="info-block">
+        <p><strong>Name:</strong> <%= bill.patient_name %></p>
+        <p><strong>Age:</strong> <%= bill.patient_age %></p>
+        <p><strong>Gender:</strong> <%= bill.patient_gender %></p>
+        <p><strong>Contact:</strong> <%= bill.patient_contact %></p>
+        <p><strong>Issue:</strong> <%= bill.patient_issue %></p>
+        <p><strong>Admitted On:</strong> <%= bill.admitted_date?.toISOString().split("T")[0] %></p>
+        <p><strong>Discharge Date:</strong> <%= bill.discharge_date?.toISOString().split("T")[0] || '-' %></p>
+      </div>
     </div>
 
+    <!-- Charges -->
+    <div>
+      <h5 class="section-title"><i class="bi bi-cash-coin icon"></i>Billing Breakdown</h5>
+      <div class="info-block">
+        <p><strong>Room Charges:</strong> ₹<%= bill.room_charges %></p>
+        <p><strong>Doctor Charges:</strong> ₹<%= bill.doctor_charges %></p>
+        <p><strong>Medicine Charges:</strong> ₹<%= bill.medicine_charges %></p>
+        <p><strong>Medicine Quantity:</strong> <%= bill.medicine_quantity %></p>
+        <hr />
+        <p><strong class="fs-5 text-success">Total Amount:</strong> ₹<strong class="fs-5 text-success"><%= bill.total_amount %></strong></p>
+        <p><strong>Billing Date:</strong> <%= bill.billing_date?.toISOString().split("T")[0] %></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <div class="text-center mt-4">
-      <button class="btn btn-outline-primary" onclick="window.print()">🖨️ Print Bill</button>
-      <a href="/reception/view-patient" class="btn btn-secondary ms-2">← Back to Patient List</a>
+      <button onclick="window.print()" class="btn btn-outline-info me-2">
+        <i class="bi bi-printer"></i> Print Bill
+      </button>
+      <a href="/reception/view-patient" class="btn btn-secondary">
+        <i class="bi bi-arrow-left-circle"></i> Back to Patient List
+      </a>
     </div>
   </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
