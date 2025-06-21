@@ -208,4 +208,11 @@ router.get("/doctor/show-patient/:patientId", patientController.showPatient);
 router.post("/doctor/prescribe-medicine/:patientId", patientController.prescribeMedicine);
 router.post("/doctor/check-patient/:patientId", patientController.markAsChecked);
 
+
+router.get('/reception/view-patient', receptionController.viewPatients);
+router.post('/reception/generate-bill', receptionController.saveBill);
+router.get('/reception/view-bill/:patientId', receptionController.viewBill);
+
+
+
 module.exports = router;
