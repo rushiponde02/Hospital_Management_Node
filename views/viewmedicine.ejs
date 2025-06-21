@@ -25,24 +25,36 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped">
-                <thead class="table-primary text-center">
-                  <tr>
-                    <th>ID</th>
-                    <th>Medicine</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  <% medicines.forEach(m => { %>
-                    <tr>
-                      <td><%= m.medical_id %></td>
-                      <td><%= m.medicine_name %></td>
-                      <td>₹ <%= m.price_medicine %></td>
-                    </tr>
-                  <% }); %>
-                </tbody>
-              </table>
+              <!-- Add Search Box -->
+<form method="GET" action="/medicine/search" class="mb-3 d-flex justify-content-end">
+  <input type="text" name="q" class="form-control w-25 me-2" placeholder="Search by medicine name">
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-primary text-center">
+    <tr>
+      <th>ID</th>
+      <th>Medicine</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    <% medicines.forEach(m => { %>
+      <tr>
+        <td><%= m.medical_id %></td>
+        <td><%= m.medicine_name %></td>
+        <td>₹ <%= m.price_medicine %></td>
+        <td>
+          <a href="/medicine/edit/<%= m.medical_id %>" class="btn btn-sm btn-warning">Edit</a>
+          <a href="/medicine/delete/<%= m.medical_id %>" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+
             </div>
 
             <div class="text-center mt-3">

@@ -189,20 +189,20 @@ router.get("/doctor/add-medicine", medicineController.renderAddMedicineForm);
 router.post("/doctor/add-medicine", medicineController.addMedicine);
 router.get("/doctor/view-medicine", medicineController.viewMedicines);
 router.get("/doctor/patient-visited", doctorController.showVisitedPatients);
-router.get(
-  "/doctor/patient-not-visited",
-  doctorController.showNotVisitedPatients
-);
+router.get("/doctor/patient-not-visited",doctorController.showNotVisitedPatients);
 router.get("/doctor/assign-patient", doctorController.viewAssignedPatients);
 
-router.get(
-  "/reception/add-medicine/",
-  medicineController.renderAddMedicineForm
-);
+router.get("/reception/add-medicine/",medicineController.renderAddMedicineForm);
 
 router.post("/reception/add-medicine/", medicineController.addMedicine);
 
 router.get("/reception/view-medicine", medicineController.viewMedicines);
+
+router.get("/medicine/edit/:id", medicineController.renderEditForm);
+router.post("/medicine/edit/:id", medicineController.updateMedicine);
+router.get("/medicine/delete/:id", medicineController.deleteMedicine);
+
+router.get("/medicine/search", medicineController.searchMedicine);
 
 ///doctor/show-patient/<%= p.patient_id %>
 router.get("/doctor/show-patient/:patientId", patientController.showPatient);
