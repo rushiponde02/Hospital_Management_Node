@@ -101,4 +101,3 @@ exports.viewAssignedPatients = (req, res) => {
     });
   });
 };
-
