@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Patient List</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .bill-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #f8f9fa;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      .bill-section,
+      .bill-section * {
+        visibility: visible;
+      }
+
+      .bill-section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <div class="container-fluid">
     <div class="row">
@@ -15,101 +43,130 @@
         <%- include('receptionNavbar') %>
       </div>
 
-      <!-- Main content -->
+      <!-- Main Content -->
       <div class="col-md-9 col-lg-10 p-4">
         <h3 class="text-center mb-4">Patient List</h3>
 
-       <div class="d-flex justify-content-center mb-4">
-            <input type="text" id="searchBox" class="form-control w-50" placeholder="Search by patient name...">
-        </div>
-
-
         <div class="table-responsive">
-          <table class="table table-bordered table-hover align-middle text-center">
-            <thead class="table-primary">
+          <table class="table table-bordered align-middle text-center">
+            <thead class="table-dark">
               <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Contact</th>
-                <th>Issue</th>
-                <th>Room</th>
-                <th>Nurse</th>
-                <th>Doctor</th>
                 <th>Status</th>
-                <th>Admitted</th>
-                <th>Discharge</th>
+                <th>Doctor</th>
+                <th>Room</th>
+                <th>Action</th>
               </tr>
             </thead>
-            <tbody id="patientTable">
-              <% patients.forEach(p => { %>
+            <tbody>
+              <% patients.forEach(p=> { %>
                 <tr>
-                  <td><%= p.patient_id %></td>
-                  <td><%= p.patient_name %></td>
-                  <td><%= p.patient_age %></td>
-                  <td><%= p.patient_gender %></td>
-                  <td><%= p.patient_contact %></td>
-                  <td><%= p.patient_issue %></td>
-                  <td><%= p.room_no %> (<%= p.room_type %>)</td>
-                  <td><%= p.nurse_name %></td>
-                  <td><%= p.doctor_name %></td>
-                  <td><%= p.status %></td>
-                  <td><%= p.admitted_date?.toISOString().split("T")[0] %></td>
-                  <td><%= p.discharge_date ? p.discharge_date.toISOString().split("T")[0] : "-" %></td>
+                  <td>
+                    <%= p.patient_id %>
+                  </td>
+                  <td>
+                    <%= p.patient_name %>
+                  </td>
+                  <td>
+                    <%= p.status %>
+                  </td>
+                  <td>
+                    <%= p.doctor_name %> (<%= p.doctor_specialization %>)
+                  </td>
+                  <td>
+                    <%= p.room_no %> (<%= p.room_type %>)
+                  </td>
+                  <td>
+                    <% if (p.status==='Visited' ) { %>
+                      <% if (!p.bill_id) { %>
+                        <button type="button" class="btn btn-success btn-sm"
+                          onclick="toggleBillForm(<%= p.patient_id %>)">
+                          Generate Bill
+                        </button>
+
+                        <!-- START: Actual form -->
+                        <div id="billForm-<%= p.patient_id %>" class="bill-section d-none mt-3">
+                          <form action="/reception/generate-bill" method="POST"
+                            onsubmit="return confirm('Are you sure you want to generate this bill?');">
+                            <input type="hidden" name="patient_id" value="<%= p.patient_id %>">
+                            <!-- <input type="hidden" name="room_charges" value="<%= p.room_charge || 0 %>"> -->
+
+
+                            <h5 class="text-primary">🏥 Hospital: RR Hospital</h5>
+                            <h6>👨‍⚕️ Doctor: <%= p.doctor_name %> (<%= p.doctor_specialization %>)</h6>
+                            <h6>👤 Patient: <%= p.patient_name %> | Age: <%= p.patient_age %> | Gender: <%=
+                                    p.patient_gender %>
+                            </h6>
+                            <h6>📞 Contact: <%= p.patient_contact %>
+                            </h6>
+                            <h6>📝 Issue: <%= p.patient_issue %>
+                            </h6>
+                            <h6>🛏️ Room: <%= p.room_no %> (<%= p.room_type %>)</h6>
+                            <h6>📅 Admitted: <%= p.admitted_date ? p.admitted_date.toISOString().split("T")[0] : "-" %>
+                            </h6>
+                            <h6>📅 Discharge: <%= p.discharge_date ? p.discharge_date.toISOString().split("T")[0] : "-"
+                                %>
+                            </h6>
+                            <hr>
+
+                            <div class="row g-2">
+                              <div class="col-md-4">
+                                <label>Doctor Charges</label>
+                                <input type="number" name="doctor_charges" class="form-control" required>
+                              </div>
+                              <div class="col-md-4">
+                                <label>Medicine Charges</label>
+                                <input type="number" name="medicine_charges" class="form-control" required>
+                              </div>
+                              <div class="col-md-4">
+                                <label>Medicine Quantity</label>
+                                <input type="number" name="medicine_quantity" class="form-control" required>
+                              </div>
+                            </div>
+
+                            <div class="mt-3 d-flex justify-content-between">
+                              <button type="submit" class="btn btn-primary">💾 Save Bill</button>
+                              <button type="button" class="btn btn-outline-secondary"
+                                onclick="printBill(<%= p.patient_id %>)">🖨️ Print</button>
+                            </div>
+                          </form>
+                        </div>
+                        <!-- END: Form -->
+                        <% } else { %>
+                          <a href="/reception/view-bill/<%= p.patient_id %>" class="btn btn-outline-info btn-sm">View Bill</a>
+                          <% } %>
+                            <% } else { %>
+                              <button class="btn btn-secondary btn-sm" disabled>Waiting</button>
+                              <% } %>
+                  </td>
+
                 </tr>
-              <% }) %>
+                <% }) %>
             </tbody>
           </table>
-        </div>
-
-        <div class="text-center mt-4">
-          <a href="/reception/dashboard" class="btn btn-outline-secondary">← Back to Dashboard</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Search functionality -->
   <script>
-    document.getElementById("searchBox").addEventListener("input", function () {
-      const query = this.value.trim();
-      fetch(`/search-patient?name=${encodeURIComponent(query)}`)
-        .then(res => res.json())
-        .then(data => {
-          const tbody = document.getElementById("patientTable");
-          tbody.innerHTML = "";
+    function toggleBillForm(patientId) {
+      const form = document.getElementById('billForm-' + patientId);
+      form.classList.toggle('d-none');
+    }
 
-          if (data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="12">No patients found.</td></tr>`;
-            return;
-          }
+    function printBill(patientId) {
+      const billSection = document.getElementById('billForm-' + patientId);
+      if (!billSection) return;
 
-          data.forEach(p => {
-            const row = `
-              <tr>
-                <td>${p.patient_id}</td>
-                <td>${p.patient_name}</td>
-                <td>${p.patient_age || ""}</td>
-                <td>${p.patient_gender || ""}</td>
-                <td>${p.patient_contact || ""}</td>
-                <td>${p.patient_issue || ""}</td>
-                <td>${p.room_no || ""} (${p.room_type || ""})</td>
-                <td>${p.nurse_name || ""}</td>
-                <td>${p.doctor_name || ""}</td>
-                <td>${p.status || ""}</td>
-                <td>${p.admitted_date ? new Date(p.admitted_date).toISOString().split("T")[0] : ""}</td>
-                <td>${p.discharge_date ? new Date(p.discharge_date).toISOString().split("T")[0] : "-"}</td>
-              </tr>
-            `;
-            tbody.innerHTML += row;
-          });
-        });
-    });
+      const originalContent = document.body.innerHTML;
+      document.body.innerHTML = billSection.outerHTML;
+      window.print();
+      document.body.innerHTML = originalContent;
+      location.reload(); // reload to restore full content
+    }
   </script>
 </body>
-</html>
 
+</html>
