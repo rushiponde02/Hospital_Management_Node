@@ -31,6 +31,7 @@ exports.viewMedicines = (req, res) => {
 };
 
 exports.renderAddMedicineForm = (req, res) => {
+  
   res.render("addmedicine");
 };
 
