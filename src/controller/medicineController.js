@@ -1,4 +1,5 @@
 const Medicine = require("../models/medicineModel");
+const db = require("../config/db");
 
 exports.renderAddMedicineForm = (req, res) => {
   db.query("SELECT patient_id, patient_name FROM patient", (err, patients) => {
@@ -31,4 +32,40 @@ exports.viewMedicines = (req, res) => {
 
 exports.renderAddMedicineForm = (req, res) => {
   res.render("addmedicine");
+};
+
+exports.renderEditForm = (req, res) => {
+  const id = req.params.id;
+  db.query("SELECT * FROM medicine WHERE medical_id = ?", [id], (err, results) => {
+    if (err) return res.status(500).send("Error loading medicine");
+    res.render("editmedicine", { medicine: results[0] });
+  });
+};
+
+exports.updateMedicine = (req, res) => {
+  const { medicine_name, price_medicine } = req.body;
+  const id = req.params.id;
+  db.query("UPDATE medicine SET medicine_name = ?, price_medicine = ? WHERE medical_id = ?", 
+    [medicine_name, price_medicine, id], 
+    (err) => {
+      if (err) return res.status(500).send("Error updating medicine");
+      res.redirect("/medicine/view");
+    }
+  );
+};
+
+exports.deleteMedicine = (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM medicine WHERE medical_id = ?", [id], (err) => {
+    if (err) return res.status(500).send("Error deleting medicine");
+    res.redirect("/medicine/view");
+  });
+};
+
+exports.searchMedicine = (req, res) => {
+  const search = `%${req.query.q}%`;
+  db.query("SELECT * FROM medicine WHERE medicine_name LIKE ?", [search], (err, results) => {
+    if (err) return res.status(500).send("Search failed");
+    res.render("viewmedicine", { medicines: results });
+  });
 };
